@@ -1,7 +1,7 @@
 from .common import *
 
 DEBUG = False
-ALLOWED_HOSTS = ['bizcall.pythonanywhere.com']
+ALLOWED_HOSTS = ['festigo.pythonanywhere.com']
 
 DATABASES = {
     'default': {
