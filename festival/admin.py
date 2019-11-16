@@ -11,7 +11,7 @@ class FestivalImageAdmin(admin.ModelAdmin):
 
 
 class FestivalCommentAdmin(admin.ModelAdmin):
-    list_display = ['festival', 'comment']
+    list_display = ['festival', 'content']
 
 
 class FestivalSNSAdmin(admin.ModelAdmin):

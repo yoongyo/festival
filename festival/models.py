@@ -22,6 +22,9 @@ class Festival(models.Model):
     start = models.CharField(max_length=50)
     end = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class FestivalImage(models.Model):
     festival = models.ForeignKey(Festival, on_delete=models.CASCADE)
@@ -29,12 +32,14 @@ class FestivalImage(models.Model):
 
 
 class FestivalComment(models.Model):
+    festival = models.ForeignKey(Festival, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateField()
 
 
 class FestivalSNS(models.Model):
+    festival = models.ForeignKey(Festival, on_delete=models.CASCADE)
     facebook = models.CharField(max_length=50)
     instagram = models.CharField(max_length=50)
     twitter = models.CharField(max_length=50)
