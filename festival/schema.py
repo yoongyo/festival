@@ -31,13 +31,20 @@ class FestivalSNSType(DjangoObjectType):
 class Query(graphene.AbstractType):
     all_festival = graphene.List(FestivalType)
 
-    all_festivalArea = graphene.List(FestivalImageType)
+    all_festivalArea = graphene.List(FestivalAreaType)
 
     all_festivalComment = graphene.List(FestivalCommentType)
 
     all_festivalSNS = graphene.List(FestivalSNSType)
 
     all_festivalImage = graphene.List(FestivalImageType)
+
+    festival = graphene.Field(FestivalType,
+                                id=graphene.Int())
+
+    gallery = graphene.Field(FestivalImageType,
+                                festival=graphene.Int()
+                            )
 
     def resolve_all_festival(self, context, **kwargs):
         return Festival.objects.all()
@@ -53,4 +60,20 @@ class Query(graphene.AbstractType):
 
     def resolve_all_festivalImage(self, context, **kwargs):
         return FestivalImage.objects.all()
+
+    def resolve_festival(self, context, **kwargs):
+        id = kwargs.get('id')
+
+        if id is not None:
+            return Festival.objects.get(pk=id)
+
+        return None
+
+    def resolve_gallery(self, context, **kwargs):
+        festival = kwargs.get('festival')
+
+        if festival is not None:
+            return FestivalImage.objects.filter(festival__pk=festival)
+
+        return None
 
